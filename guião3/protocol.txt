@@ -1,0 +1,20 @@
+O protocolo define classes para os tipos de mensagens permitidas:
+    Subscribe - contém o tópico a subscrever
+    Publish - contém o tópico e o valor a publicar no tópico
+    TopicListRequest - pedido da lista de tópicos existentes
+    TopicListReply - resposta com a lista de tópicos existentes
+    CancelSubscription - contém o topíco de que queremos cancelar a subscrição prévia
+    Acknowledge - contém a linguagem de serialização do consumer/producer
+Cada uma destas mensagens comtém:
+    __repr__() -> devolve a mensagem em formato JSON
+    toPickle() -> devolve a mensagem em formato Pickle
+    toXML()    -> devolve a mensagem em formato toXML
+
+A classe PubSubProtocol contém os métodos de criação destas mensagens.
+    - a função sendMsg codifica e envia uma mensagem na serialização especificada
+    - a função recvMsg recebe e descodifica uma mensagem na serialização especificada
+Mensagens são sempre enviadas em 3 partes:
+    1. tipo serialização (1 byte)
+    2. header/tamanho da mensagem (2 bytes)
+    3. conteúdo da mensagem (tamanho especificado no header)
+
